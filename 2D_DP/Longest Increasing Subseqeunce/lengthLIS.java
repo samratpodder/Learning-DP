@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -81,19 +82,20 @@ public class lengthLIS {
 
     // Most Optimized LIS Algorithm
     public int length_LIS(int[] nums) {
-        List<Integer> l = new ArrayList<>();
-        l.add(nums[0]);
+        int[] l = new int[nums.length];
+        Arrays.fill(l,Integer.MAX_VALUE);
+        l[0] = nums[0];
         int len=1;
         for(int i=1;i<nums.length;i++)
         {
-            if(nums[i]>l.get(l.size()-1)){
-                l.add(nums[i]);
-                len++;
+            if(nums[i]>l[len-1]){
+                l[len++] = nums[i];
             }
             else{
-                int ind = Collections.binarySearch(l, nums[i]);
+                int ind = Arrays.binarySearch(l, nums[i]);
+                System.out.println(ind);
                 if(ind<0) ind = -(ind+1);
-                l.add(ind, nums[i]);
+                l[ind] = nums[i];
             }
         }
         return len;
